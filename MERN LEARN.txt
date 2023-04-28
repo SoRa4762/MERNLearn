@@ -1,0 +1,118 @@
+remember to not create .env file too out of your directory... it must be with in your main directory GGs!
+
+sauce: https://dev.to/stripe/5-reasons-why-your-env-environment-variables-dont-work-1hc0
+
+====
+3:56, seems like you need dto remove all the repeating variables like these..
+
+const title = req.body.title;
+cosnst body = req.body.body;
+
+res.json({title: title, body: body}) is a wrong way..
+right way be like...
+({title, body})
+
+also when exporting 
+module.exports = {
+fetchNote, fetchNotes, createNote, instead of...}
+module.exports = {fetchNote: fetchnote}
+
+====
+4:57 PM
+====
+was stuck as to why i was not getting any error, and well, turns out i had just ran the function fetchData; like that. when you should obviously call it like so..
+fetchData(); damn, the time mate... 
+
+==== 
+27/04/2023 - 12:17 PM
+====
+
+##update IP address on mongoDB
+- you get an error if your IP address doesnt match the IP address registered in mnongoDB
+
+##when filtering in delete command, when you call the state that has "fetched" notes/data form the database, remember to use its "id" value like so _id, instead of just passing the "id" you get from the "handleDelete" function
+like so
+
+const newNotes = [...notes].filter((note)=>{
+return note._id !== id
+});
+setNotes(newNotes)
+
+##you dont have to create a useState for individual textfield of a form
+you can just assign an object like so
+
+const [formData, setFormData] = useState({title: "", body: "", firstName: ""});
+
+//update it like so
+const handleUpdateForm = (e) => {
+const {name, value} = e.target;
+setFormData({
+...formdata,
+[name]:value,
+})
+}
+
+//jsx component
+<input
+value={formData.title}
+onChange={handleUpdateForm}
+name="title"
+type="text"
+/>
+<textarea
+id="body"
+value={formData.body}
+onChange={handleUpdateForm}
+name="body"
+cols="30"
+rows="10"
+/>
+<input
+value={formData.firstName}
+name="firstName"
+onChange={handleUpdateForm}
+type="text"
+/>
+
+##BOOM and done, your entire form is set this way..
+##best part is, you can also post/put axios like this...
+
+const createNote = async () => {
+    const res = axios.post("http://localhost:5000/notes", formData);
+    console.log(res)
+
+    //notes - data fetched form DB
+    //we updating it in UI, also if we update this way, when we click on delete, it will handle it properly, because it has the appropriate "_id" value to it
+    setNotes([...notes, res.data.note])
+
+    setFormData({title: "", body: "", firstName: ""})
+}
+
+##AND with this, you are ready to manipulate (CRUD) an entire form's data with just a single useState (2, if you include manipulating UI as well)
+
+====
+15:22, the crud part is complete, now i want to add MUI and make an component of it, might start doing rest later, maybe add auth and login and things later.
+for now lets focus on MUI and UI aight? lets go!
+
+====
+28/04/2023 - 11:22 AM
+====
+things to do on my note taking app
+##need to learn redux to apply states
+##but first need to fix the UI
+- add tooltip {onclick brings dialogbox}
+- dialogbox has input fields, that "change" we do the same for update as well and for delete as well
+- then we learn redux to add states
+- then toasts
+- then login and auth and stuff
+
+====
+12:07, damn i am making so much mistakes... maybe i just have to try to implement things first...
+- edit and create and delete all of them will have their own dialogbox.
+- but first just include all of them in the same file
+- then use redux to seperate them
+## END of the discussion
+
+====
+06:00 PM, yeah i was able to seperate component (Accordion) finally, despite eslint telling me to validate props, it still works, and thats all that matters(for now, also this aint ts, stfu eslint)
+regardless about the form state, you cannot edit your form state unless you use "name" attribute of a textfield, using anything else but [name] and value will not work

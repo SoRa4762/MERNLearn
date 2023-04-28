@@ -1,0 +1,33 @@
+:root {
+  --font-family: Lato, Open Sans, Noto Sans JP, Arial, Helvetica, sans-serif;
+}
+
+* {
+  font-family: var(--font-family);
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  /* background: #141e30; */
+  /* background: -webkit-linear-gradient(
+    to right,
+    #243b55,
+    #141e30
+  ); 
+  background: linear-gradient(
+    to right,
+    #243b55,
+    #141e30
+  ); */
+  /* color: white; */
+}
+
+/* .notes,
+.updateNote,
+.form {
+  display: flex;
+  row-gap: 2px;
+}
+
+.notes-body {
+  display: flex;
+} */
